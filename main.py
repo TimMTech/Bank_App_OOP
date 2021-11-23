@@ -102,22 +102,22 @@ class RegisterPage(tk.Frame):
         self.username_notify = tk.Label(self, font=MEDIUM_FONT)
 
     def finish_reg(self):
-        name = self.username.get()
+        username = self.username.get()
         age = self.age.get()
         password = self.username_password.get()
         answer = self.recovery_answer.get()
-        if name in self.all_accounts:
+        if username in self.all_accounts:
             self.username_notify = tk.Label(self, font=MEDIUM_FONT)
             self.username_notify.grid(row=7)
             self.username_notify.config(fg='red', text='Account Exists')
             return
-        with OpenFile(name, 'w') as f:
-            f.write(name + '\n')
+        with OpenFile(username, 'w') as f:
+            f.write(username + '\n')
             f.write(age + '\n')
             f.write('0' + '\n')
             f.write(password + '\n')
             f.write(answer)
-            self.all_accounts.append(name)
+            self.all_accounts.append(username)
             self.username_notify.grid_remove()
             self.register_button['text'] = 'Account Registered'
             self.register_button['state'] = 'disabled'
