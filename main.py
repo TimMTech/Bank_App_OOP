@@ -168,17 +168,17 @@ class LoginPage(RegisterPage, tk.Frame):
         self.login_notify = tk.Label(self, font=MEDIUM_FONT)
 
     def login_session(self):
-        self.username = self.username.get()
-        self.username_password = self.username_password.get()
+        username = self.username.get()
+        username_password = self.username_password.get()
         self.all_accounts = os.listdir()
         for name in self.all_accounts:
-            if self.username in name:
-                with OpenFile(self.username, 'r') as f:
+            if username in name:
+                with OpenFile(username, 'r') as f:
                     file_data = f.read()
                     file_data = file_data.split('\n')
                     password = file_data[3]
 
-                    if self.username_password == password:
+                    if username_password == password:
                         self.login_notify.grid_remove()
                         self.controller.show_frame(AccountDash)
                     self.login_notify.config(fg='red', text='Incorrect Password')
@@ -191,7 +191,6 @@ class AccountDash(LoginPage, tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
-        self.all_accounts = os.listdir()
 
         label = tk.Label(self, text="Account Dashboard", font=LARGE_FONT)
         label.grid(row=0, sticky=N, padx=78, pady=20)
@@ -215,10 +214,12 @@ class AccountDash(LoginPage, tk.Frame):
         logout_button.grid(row=5, sticky=N, pady=10)
 
 
-class PersonalDetails(AccountDash, tk.Frame):
+class PersonalDetails(LoginPage, tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
+        self.all_accounts = os.listdir()
+
         label = tk.Label(self, text="Account Information", font=LARGE_FONT)
         label.grid(row=0, sticky=N, padx=78)
         label_username = tk.Label(self, text="Username: ", font=MEDIUM_FONT)
