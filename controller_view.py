@@ -157,6 +157,7 @@ class LoginPage(tk.Frame):
     Frame for Distinct Users
     All operation performed in class LoginPage
     """
+
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
